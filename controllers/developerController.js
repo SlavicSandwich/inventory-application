@@ -39,7 +39,8 @@ exports.developer_create_post = [
     .escape()
     .withMessage("Name of the developer must be specified,")
     .isAlphanumeric()
-    .withMessage("Name contains non alphanumber symbols."),
+    .withMessage("Name contains non alphanumber symbols.")
+    .escape(),
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
