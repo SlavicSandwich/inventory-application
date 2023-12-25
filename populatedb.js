@@ -38,8 +38,9 @@ async function main() {
 // genre[0] will always be the Fantasy genre, regardless of the order
 // in which the elements of promise.all's argument complete.
 async function genreCreate(index, name, description) {
-  const genre = new Genre({ name: name });
-  if (description) genre.description = description;
+  const genre_data = { name: name };
+  if (description) genre_data.description = description;
+  const genre = new Genre(genre_data);
   await genre.save();
   genres[index] = genre;
   console.log(`Added genre: ${name}`);
