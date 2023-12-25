@@ -64,8 +64,8 @@ exports.publisher_create_post = [
 ];
 
 exports.publisher_update_get = asyncHandler(async (req, res, next) => {
-  const publisher = await publisher.findById(req.params.id).exec();
-  if (author === null) {
+  const publisher = await Publisher.findById(req.params.id).exec();
+  if (publisher === null) {
     res.redirect("/catalog/publishers");
   } else {
     res.render("publisher_form", {
@@ -99,7 +99,7 @@ exports.publisher_update_post = [
         errors: errors.array(),
       });
     } else {
-      const updatedPublisher = await publisher.findByIdAndUpdate(
+      const updatedPublisher = await Publisher.findByIdAndUpdate(
         req.params.id,
         publisher,
         {}
@@ -111,7 +111,7 @@ exports.publisher_update_post = [
 
 exports.publisher_delete_get = asyncHandler(async (req, res, next) => {
   const [publisher, gamesBypublisher] = await Promise.all([
-    publisher.findById(req.params.id).exec(),
+    Publisher.findById(req.params.id).exec(),
     Game.find({ publisher: req.params.id }, "name description").exec(),
   ]);
 
@@ -128,7 +128,7 @@ exports.publisher_delete_get = asyncHandler(async (req, res, next) => {
 
 exports.publisher_delete_post = asyncHandler(async (req, res, next) => {
   const [publisher, gamesBypublisher] = await Promise.all([
-    publisher.findById(req.params.id).exec(),
+    Publisher.findById(req.params.id).exec(),
     Game.find({ publisher: req.params.id }, "name description").exec(),
   ]);
 
