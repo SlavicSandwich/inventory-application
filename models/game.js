@@ -7,7 +7,7 @@ const GameSchema = new Schema({
   developer: { type: Schema.Types.ObjectId, ref: "Developer", required: true },
   description: { type: String },
   release_date: { type: Date, default: Date.now },
-  genre: { type: Schema.Types.ObjectId, ref: "Genre", required: true },
+  genre: [{ type: Schema.Types.ObjectId, ref: "Genre", required: true }],
   img: { type: String, default: "unspecified.png" },
   status: {
     type: String,
