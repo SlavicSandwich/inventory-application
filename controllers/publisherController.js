@@ -16,6 +16,12 @@ exports.publisher_detail = asyncHandler(async (req, res, next) => {
   const publisher = Publisher.findById(req.params.id).exec();
 
   //TODO: add display games published
+  const gamesByPublisher = Game.find(
+    { publisher: req.params.id },
+    "name description"
+  )
+    .sort({ name: 1 })
+    .exec();
 
   if (publisher === null) {
     const err = new Error("Publisher not found");
@@ -26,6 +32,7 @@ exports.publisher_detail = asyncHandler(async (req, res, next) => {
   res.render("publisher_detail", {
     title: "Publisher Detail",
     publisher: publisher,
+    games_by_publisher: gamesByPublisher,
   });
 });
 

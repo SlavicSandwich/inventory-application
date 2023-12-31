@@ -15,6 +15,12 @@ exports.developer_detail = asyncHandler(async (req, res, next) => {
   const developer = await Developer.findById(req.params.id).exec();
 
   //TODO: Add games by developer
+  const gamesByDeveloper = Game.find(
+    { developer: req.params.id },
+    "name description"
+  )
+    .sort({ name: 1 })
+    .exec();
 
   if (developer === null) {
     const err = new Error("Developer not found");
@@ -25,6 +31,7 @@ exports.developer_detail = asyncHandler(async (req, res, next) => {
   res.render("developer_detail", {
     title: "Developer Detail",
     developer: developer,
+    games_by_developer: gamesByDeveloper,
   });
 });
 

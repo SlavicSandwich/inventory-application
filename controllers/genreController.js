@@ -16,6 +16,9 @@ exports.genre_detail = asyncHandler(async (req, res, next) => {
   const genre = Genre.findById(req.params.id).exec();
 
   //TODO: add display game of this genre
+  const gamesByGenre = Game.find({ genre: req.params.id }, "name description")
+    .sort({ name: 1 })
+    .exec();
 
   if (genre === null) {
     const err = new Error("Game not found");
@@ -26,6 +29,7 @@ exports.genre_detail = asyncHandler(async (req, res, next) => {
   res.render("genre_detail", {
     title: "Genre Detail",
     genre: genre,
+    games_by_genre: gamesByGenre,
   });
 });
 
