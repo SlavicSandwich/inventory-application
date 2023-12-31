@@ -20,6 +20,26 @@ const storage = multer.diskStorage({
 //Multer upload instance
 const upload = multer({ storage: storage });
 
+exports.index = asyncHandler(async (req, res, next) => {
+  const [numAvailableGames, numGames, numPublishers, numDevelopers, numGenres] =
+    await Promise.all([
+      Game.countDocuments({ status: "Available" }).exec(),
+      Game.countDocuments({}).exec(),
+      Publisher.countDocuments({}).exec(),
+      Developer.countDocuments({}).exec(),
+      Genre.countDocuments({}).exec(),
+    ]);
+
+  res.render("index", {
+    title: "Game invenotory!",
+    game_count: numGames,
+    available_game_count: numAvailableGames,
+    developer_count: numDevelopers,
+    publisher_count: numPublishers,
+    genre_count: numGenres,
+  });
+});
+
 exports.game_list = asyncHandler(async (req, res, next) => {
   const allGames = await Game.find().sort({ name: 1 }).exec();
 
