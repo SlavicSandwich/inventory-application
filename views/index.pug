@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class="container")
+    div(class="indexDiv")
+      h1(class="display-4")=title 
+
+      p(class="lead") Welcome to #[em Inventory application]
+
+
+      ul(class="list-group")
+        li(class="list-group-item") !{game_count} Games in our Database
+        li(class="list-group-item") !{available_game_count} Games Available!
+        li(class="list-group-item") !{developer_count} Developers make games!
+        li(class="list-group-item") !{publisher_count} Publishers publish games!
+        li(class="list-group-item") !{genre_count} Genres of games avaialble!
+
+

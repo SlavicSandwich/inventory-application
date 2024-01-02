@@ -1,7 +1,75 @@
 doctype html
-html
+html(lang='en')
   head
     title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css", integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N", crossorigin="anonymous")
+    script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js", integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj", crossorigin="anonymous")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js", integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+", crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    div(class='container')
+      header(class='d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom')
+        a(class='d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none')
+          img(src='/images/inventory-logo.png')
+          span(class='fs-4') Game Inventory
+      ul(class="nav nav-pills")
+        li(class='nav-item')
+          a(href='/index',class="nav-link active") Home 
+        li(class='nav-item')
+          a(href='/catalog/games',class="nav-link") Games 
+        li(class='nav-item')
+          a(href='/catalog/genres',class="nav-link") Genres
+        li(class='nav-item')
+          a(href='/catalog/developers',class="nav-link") Developers 
+        li(class='nav-item')
+          a(href='/catalog/publishers',class="nav-link") Publishers 
+
+      ul(class="nav nav-pills")
+        li(class='nav-item')
+          a(href='/catalog/game/create',class="nav-link") Create Game 
+        li(class='nav-item')
+          a(href='/catalog/genre/create',class="nav-link") Create Genre
+        li(class='nav-item')
+          a(href='/catalog/developer/create',class="nav-link") Create Developer 
+        li(class='nav-item')
+          a(href='/catalog/publisher/create',class="nav-link") Create Publisher 
+
+
+    div(class='col-sm-10 ')
+      block content  
+
+    footer(class="footer fixed-bottom bg-dark text-light")
+      div(class="container d-flex justify-content-center align-items-center")
+        p(class='m-0 mr-2') 2023 - Slavic_Sandwich
+
+
+    //- div(class='container-fluid')
+    //-   div(class='row')
+    //-     div(class='col-sm-2')
+    //-       block sidebar
+    //-         ul(class='sidebar-nav')
+    //-           li
+    //-             a(href='/catalog') Home
+    //-           li
+    //-             a(href='/catalog/books') All books
+    //-           li
+    //-             a(href='/catalog/authors') All authors
+    //-           li
+    //-             a(href='/catalog/genres') All genres
+    //-           li
+    //-             a(href='/catalog/bookinstances') All book-instances
+    //-           li
+    //-             hr
+    //-           li
+    //-             a(href='/catalog/author/create') Create new author
+    //-           li
+    //-             a(href='/catalog/genre/create') Create new genre
+    //-           li
+    //-             a(href='/catalog/book/create') Create new book
+    //-           li
+    //-             a(href='/catalog/bookinstance/create') Create new book instance (copy)
+
+        div(class='col-sm-10')
+          block content
