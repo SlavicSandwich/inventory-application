@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.genre_list = asyncHandler(async (req, res, next) => {
-  const genres = Genre.find().sort({ name: 1 }).exec();
+  const genres = await Genre.find().sort({ name: 1 }).exec();
 
   res.render("genre_list", {
     title: "Genre list",

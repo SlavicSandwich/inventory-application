@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.publisher_list = asyncHandler(async (req, res, next) => {
-  const publishers = Publisher.find().sort({ name: 1 }).exec();
+  const publishers = await Publisher.find().sort({ name: 1 }).exec();
 
   res.render("publisher_list", {
     title: "Publisher list",
