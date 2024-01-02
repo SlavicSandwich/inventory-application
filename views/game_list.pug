@@ -1,6 +1,21 @@
-extends layout 
+extends layout
 
-block content 
-  h1 #{title}
+block content
+  h1= title
 
-  p Not yet implemented
+  ul
+    each game in games
+      li
+        img(src=game.image_url)
+        a(href=game.url) #{game.name} -
+        if game.status=='Available'
+          span.text-success #{game.status}
+        else if game.status=='Out of stock'
+          span.text-danger #{game.status}
+        else
+          span.text-warning #{game.status}
+        if game.status=='Not out yet'
+          span  (Releases: #{game.release_date_formatted} )
+
+    else
+      li There are no games.

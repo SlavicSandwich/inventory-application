@@ -2,4 +2,11 @@ extends layout
 
 block content 
   h1 #{title}
-  p Not yet implemented
+
+  ul
+    each publisher in publishers 
+      li 
+        a(href=publisher.url) #{publisher.name}
+
+    else 
+      li There are no publishers.

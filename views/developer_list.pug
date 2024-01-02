@@ -3,4 +3,10 @@ extends layout
 block content 
   h1 #{title}
 
-  p Not yet implemented
+  ul
+    each developer in developers 
+      li 
+        a(href=developer.url) #{developer.name}
+
+    else 
+      li There are no developers.

@@ -3,4 +3,12 @@ extends layout
 block content 
   h1 #{title}
 
-  p Not yet implemented
+  ul
+    each genre in genres 
+      li 
+        p 
+          a(href=genre.url) #{genre.name}
+        p #{genre.description}
+
+    else 
+      li There are no genres.
