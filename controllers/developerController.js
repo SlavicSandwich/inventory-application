@@ -71,7 +71,7 @@ exports.developer_create_post = [
 
 exports.developer_update_get = asyncHandler(async (req, res, next) => {
   const developer = await Developer.findById(req.params.id).exec();
-  if (author === null) {
+  if (developer === null) {
     res.redirect("/catalog/developers");
   } else {
     res.render("developer_form", {
@@ -88,9 +88,11 @@ exports.developer_update_post = [
     .escape()
     .withMessage("Name of the developer must be specified,")
     .isAlphanumeric()
-    .withMessage("Name contains non alphanumber symbols."),
-  ,
+    .withMessage("Name contains non alphanumber symbols.")
+    .escape(),
   asyncHandler(async (req, res, next) => {
+    console.log("Hi");
+
     const errors = validationResult(req);
 
     const developer = new Developer({

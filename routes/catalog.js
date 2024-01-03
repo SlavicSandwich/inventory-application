@@ -50,7 +50,7 @@ router.post(
 router.get("/publisher/:id/update", publisher_controller.publisher_update_get);
 router.post(
   "/publisher/:id/update",
-  (req, res) => publisher_controller.publisher_update_post
+  publisher_controller.publisher_update_post
 );
 
 router.get("/publishers", publisher_controller.publisher_list);

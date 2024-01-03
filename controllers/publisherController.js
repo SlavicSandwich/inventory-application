@@ -90,7 +90,6 @@ exports.publisher_update_post = [
     .withMessage("Name of the publisher must be specified,")
     .isAlphanumeric()
     .withMessage("Name contains non alphanumber symbols."),
-  ,
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
