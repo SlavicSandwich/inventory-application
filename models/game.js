@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const GameSchema = new Schema({
   name: { type: String, required: true },
   developer: { type: Schema.Types.ObjectId, ref: "Developer", required: true },
+  publisher: { type: Schema.Types.ObjectId, ref: "Publisher", required: true },
   description: { type: String },
   release_date: { type: Date, default: Date.now },
   genre: [{ type: Schema.Types.ObjectId, ref: "Genre", required: true }],
@@ -20,6 +21,7 @@ const GameSchema = new Schema({
     type: Number,
     min: [0, "Game can't cost negative amount"],
     required: [true, "Game can't have no cost"],
+    default: 1,
   },
 });
 
