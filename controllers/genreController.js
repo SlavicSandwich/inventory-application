@@ -111,12 +111,17 @@ exports.genre_update_post = [
         errors: errors.array(),
       });
     } else {
-      const updatedGenre = await Genre.findByIdAndUpdate(
-        req.params.id,
-        genre,
-        {}
-      );
-      res.redirect(genre.url);
+      const genreExists = await Genre.findOne({ name: req.body.name }).exec();
+      if (genreExists) {
+        res.redirect(genreExists.url);
+      } else {
+        const updatedGenre = await Genre.findByIdAndUpdate(
+          req.params.id,
+          genre,
+          {}
+        );
+        res.redirect(genre.url);
+      }
     }
   }),
 ];

@@ -105,12 +105,19 @@ exports.publisher_update_post = [
         errors: errors.array(),
       });
     } else {
-      const updatedPublisher = await Publisher.findByIdAndUpdate(
-        req.params.id,
-        publisher,
-        {}
-      );
-      res.redirect(publisher.url);
+      const publisherExists = await Publisher.findOne({
+        name: req.body.name,
+      }).exec();
+      if (publisherExists) {
+        res.redirect(publisherExists.url);
+      } else {
+        const updatedPublisher = await Publisher.findByIdAndUpdate(
+          req.params.id,
+          publisher,
+          {}
+        );
+        res.redirect(publisher.url);
+      }
     }
   }),
 ];

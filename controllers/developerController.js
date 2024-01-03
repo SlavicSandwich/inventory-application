@@ -107,12 +107,19 @@ exports.developer_update_post = [
         errors: errors.array(),
       });
     } else {
-      const updatedDeveloper = await Developer.findByIdAndUpdate(
-        req.params.id,
-        developer,
-        {}
-      );
-      res.redirect(developer.url);
+      const developerExists = await Developer.findOne({
+        name: req.body.name,
+      }).exec();
+      if (developerExists) {
+        res.redirect(developerExists.url);
+      } else {
+        const updatedDeveloper = await Developer.findByIdAndUpdate(
+          req.params.id,
+          developer,
+          {}
+        );
+        res.redirect(developer.url);
+      }
     }
   }),
 ];
