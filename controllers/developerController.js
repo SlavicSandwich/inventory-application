@@ -15,9 +15,9 @@ exports.developer_detail = asyncHandler(async (req, res, next) => {
   const developer = await Developer.findById(req.params.id).exec();
 
   //TODO: Add games by developer
-  const gamesByDeveloper = Game.find(
+  const gamesByDeveloper = await Game.find(
     { developer: req.params.id },
-    "name description"
+    "name description img image_url"
   )
     .sort({ name: 1 })
     .exec();

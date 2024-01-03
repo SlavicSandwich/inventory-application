@@ -13,12 +13,12 @@ exports.publisher_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.publisher_detail = asyncHandler(async (req, res, next) => {
-  const publisher = Publisher.findById(req.params.id).exec();
+  const publisher = await Publisher.findById(req.params.id).exec();
 
   //TODO: add display games published
-  const gamesByPublisher = Game.find(
+  const gamesByPublisher = await Game.find(
     { publisher: req.params.id },
-    "name description"
+    "name description img image_url"
   )
     .sort({ name: 1 })
     .exec();

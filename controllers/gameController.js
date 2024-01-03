@@ -50,7 +50,7 @@ exports.game_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.game_detail = asyncHandler(async (req, res, next) => {
-  const [game, gameInstance] = await Game.findById(req.params.id)
+  const game = await Game.findById(req.params.id)
     .populate("genre")
     .populate("developer")
     .populate("publisher")

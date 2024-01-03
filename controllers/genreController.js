@@ -13,10 +13,13 @@ exports.genre_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.genre_detail = asyncHandler(async (req, res, next) => {
-  const genre = Genre.findById(req.params.id).exec();
+  const genre = await Genre.findById(req.params.id).exec();
 
   //TODO: add display game of this genre
-  const gamesByGenre = Game.find({ genre: req.params.id }, "name description")
+  const gamesByGenre = await Game.find(
+    { genre: req.params.id },
+    "name description img image_url"
+  )
     .sort({ name: 1 })
     .exec();
 
