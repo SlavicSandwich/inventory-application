@@ -98,6 +98,8 @@ exports.genre_update_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
+    console.log(req.body.description);
+
     const genre = new Genre({
       name: req.body.name,
       description: req.body.description,
@@ -112,9 +114,11 @@ exports.genre_update_post = [
       });
     } else {
       const genreExists = await Genre.findOne({ name: req.body.name }).exec();
-      if (genreExists) {
+      // console.log(genreExists._id.equals(req.params.id));
+      if (genreExists && !genreExists._id.equals(req.params.id)) {
         res.redirect(genreExists.url);
       } else {
+        console.log("hi");
         const updatedGenre = await Genre.findByIdAndUpdate(
           req.params.id,
           genre,
