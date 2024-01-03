@@ -1,6 +1,19 @@
 extends layout 
 
 block content 
-  h1 #{title}
+  h1 #{genre.name}
 
-  p Not yet implemented
+  h2 #{genre.description}
+
+  if games_by_genre.length > 0
+    p Games of this genre:
+
+  ul 
+    each game in games_by_genre
+      li
+        img(src=game.image_url)
+        a(href=game.url) #{game.name} 
+        span - #{game.description}
+
+    else 
+      p This genre has no games

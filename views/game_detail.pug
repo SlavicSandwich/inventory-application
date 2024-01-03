@@ -1,6 +1,32 @@
 extends layout 
 
 block content 
-  h1 #{title}
+  h1 #{game.name}  
 
-  p Not yet implemented
+  img(src=game.image_url)
+
+  p Description: #{game.description} 
+
+  p Release date:  
+    if game.release_date < Date.now()
+      span.text-success #{game.release_date_formatted}
+
+    else 
+      span.text-warning #{game.release_date_formatted}
+
+
+  p Developed by:  #{game.developer.name}
+  p Published by:  #{game.publisher.name}
+
+  p Genre: #{game.genre.name}
+
+  if game.status=='Available'
+    span.text-success #{game.status}
+  else if game.status=='Out of stock'
+    span.text-danger #{game.status}
+  else
+    span.text-warning #{game.status}
+  if game.status !='Not out yet'
+    p Price: 
+      span #{game.price}
+

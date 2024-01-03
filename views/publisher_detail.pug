@@ -1,6 +1,19 @@
 extends layout 
 
 block content 
-  h1 #{title}
-  
-  p Not yet implemented
+  h1 #{publisher.name}
+
+  h2 #{publisher.description}
+
+  if games_by_publisher.length > 0
+    p Games by this publisher:
+
+  ul 
+    each game in games_by_publisher
+      li
+        img(src=game.image_url)
+        a(href=game.url) #{game.name} 
+        span - #{game.description}
+
+    else 
+      p This publisher has no games

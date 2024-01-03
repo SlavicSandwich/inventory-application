@@ -1,6 +1,17 @@
 extends layout 
 
 block content 
-  h1 #{title}
+  h1 #{developer.name}  
 
-  p Not yet implemented
+  if games_by_developer.length > 0
+    p Games by this developer:
+
+  ul 
+    each game in games_by_developer
+      li  
+        img(src=game.image_url)
+        a(href=game.url) #{game.name} 
+        span - #{game.description}
+
+    else 
+      p This developer has no games
