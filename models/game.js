@@ -33,6 +33,10 @@ GameSchema.virtual("release_date_formatted").get(function () {
   return DateTime.fromJSDate(this.release_date).toISODate(); // format "YYYY-MM-DD"
 });
 
+GameSchema.virtual("release_date_yyyy_mm_dd").get(function () {
+  return DateTime.fromJSDate(this.release_date).toISODate(); // format 'YYYY-MM-DD'
+});
+
 GameSchema.virtual("image_url").get(function () {
   return `/images/${this.img}`; // format "YYYY-MM-DD"
 });
