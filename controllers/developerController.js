@@ -127,7 +127,10 @@ exports.developer_update_post = [
 exports.developer_delete_get = asyncHandler(async (req, res, next) => {
   const [developer, gamesByDeveloper] = await Promise.all([
     Developer.findById(req.params.id).exec(),
-    Game.find({ developer: req.params.id }, "name description").exec(),
+    Game.find(
+      { developer: req.params.id },
+      "name description img image_url url"
+    ).exec(),
   ]);
 
   if (developer === null) {
@@ -144,7 +147,10 @@ exports.developer_delete_get = asyncHandler(async (req, res, next) => {
 exports.developer_delete_post = asyncHandler(async (req, res, next) => {
   const [developer, gamesByDeveloper] = await Promise.all([
     Developer.findById(req.params.id).exec(),
-    Game.find({ developer: req.params.id }, "name description").exec(),
+    Game.find(
+      { developer: req.params.id },
+      "name description img image_url url"
+    ).exec(),
   ]);
 
   if (gamesByDeveloper.length > 0) {

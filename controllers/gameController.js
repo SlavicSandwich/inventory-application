@@ -101,14 +101,6 @@ exports.game_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("developer", "Name of the developer must not be empty")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
-  body("publisher", "Name of the publisher must not be empty")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
   body("release_date", "Invalid date")
     .optional({ value: "falsy" })
     .isISO8601()
@@ -123,14 +115,16 @@ exports.game_create_post = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
+    console.log(req.file);
 
     const game = new Game({
       name: req.body.name,
       developer: req.body.developer,
+      publisher: req.body.publisher,
       description: req.body.description,
       release_date: req.body.release_date,
       genre: req.body.genre,
-      img: req.file ? req.file.filename : null,
+      img: req.file ? req.file.filename : "unspecified.png",
       status: req.body.status,
       price: req.body.price,
     });
@@ -141,6 +135,8 @@ exports.game_create_post = [
         Publisher.find().sort({ name: 1 }).exec(),
         Genre.find().sort({ name: 1 }).exec(),
       ]);
+
+      console.log(Developer[0]);
 
       for (const genre of allGenres) {
         if (game.genre.includes(genre._id)) {
@@ -200,6 +196,7 @@ exports.game_update_get = asyncHandler(async (req, res, next) => {
 
 exports.game_update_post = [
   (req, res, next) => {
+    console.log(req.body);
     if (!(req.body.genre instanceof Array)) {
       if (typeof req.body.genre === "undefined") req.body.genre = [];
       else req.body.genre = new Array(req.body.genre);
@@ -212,14 +209,6 @@ exports.game_update_post = [
     .isLength({ min: 1 })
     .escape(),
   body("description", "Description must not be empty")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
-  body("developer", "Name of the developer must not be empty")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
-  body("publisher", "Name of the publisher must not be empty")
     .trim()
     .isLength({ min: 1 })
     .escape(),
@@ -237,10 +226,12 @@ exports.game_update_post = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
+    console.log(req.body);
 
     const game = new Game({
       name: req.body.name,
       developer: req.body.developer,
+      publisher: req.body.publisher,
       description: req.body.description,
       release_date: req.body.release_date,
       genre: req.body.genre,
@@ -287,6 +278,7 @@ exports.game_delete_get = asyncHandler(async (req, res, next) => {
 });
 
 exports.game_delete_post = asyncHandler(async (req, res, next) => {
-  const game = await Game.findByIdAndDelete(req.body.gameid);
+  const game = await Game.findByIdAndDelete(req.params.id);
+  console.log(req.params.id);
   res.redirect("/catalog/games");
 });

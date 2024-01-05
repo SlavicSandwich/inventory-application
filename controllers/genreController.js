@@ -133,7 +133,10 @@ exports.genre_update_post = [
 exports.genre_delete_get = asyncHandler(async (req, res, next) => {
   const [genre, gamesByGenre] = await Promise.all([
     Genre.findById(req.params.id).exec(),
-    Game.find({ genre: req.params.id }, "name description").exec(),
+    Game.find(
+      { genre: req.params.id },
+      "name description url img image_url"
+    ).exec(),
   ]);
   if (genre === null) {
     res.redirect("/catalog/genres");
@@ -149,7 +152,10 @@ exports.genre_delete_get = asyncHandler(async (req, res, next) => {
 exports.genre_delete_post = asyncHandler(async (req, res, next) => {
   const [genre, gamesByGenre] = await Promise.all([
     Genre.findById(req.params.id).exec(),
-    Game.find({ genre: req.params.id }, "name description").exec(),
+    Game.find(
+      { genre: req.params.id },
+      "name description url img image_url"
+    ).exec(),
   ]);
   if (gamesByGenre.length > 0) {
     res.redirect("genre_delete", {

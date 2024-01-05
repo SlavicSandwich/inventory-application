@@ -32,7 +32,7 @@ router.post(
 router.get("/developer/:id/update", developer_controller.developer_update_get);
 router.post(
   "/developer/:id/update",
-  (req, res) => developer_controller.developer_update_post
+  developer_controller.developer_update_post
 );
 
 router.get("/developers", developer_controller.developer_list);

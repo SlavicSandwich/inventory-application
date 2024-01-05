@@ -125,7 +125,10 @@ exports.publisher_update_post = [
 exports.publisher_delete_get = asyncHandler(async (req, res, next) => {
   const [publisher, gamesBypublisher] = await Promise.all([
     Publisher.findById(req.params.id).exec(),
-    Game.find({ publisher: req.params.id }, "name description").exec(),
+    Game.find(
+      { publisher: req.params.id },
+      "name description url img image_url"
+    ).exec(),
   ]);
 
   if (publisher === null) {
@@ -142,7 +145,10 @@ exports.publisher_delete_get = asyncHandler(async (req, res, next) => {
 exports.publisher_delete_post = asyncHandler(async (req, res, next) => {
   const [publisher, gamesBypublisher] = await Promise.all([
     Publisher.findById(req.params.id).exec(),
-    Game.find({ publisher: req.params.id }, "name description").exec(),
+    Game.find(
+      { publisher: req.params.id },
+      "name description url img image_url"
+    ).exec(),
   ]);
 
   if (gamesBypublisher.length > 0) {
@@ -152,7 +158,7 @@ exports.publisher_delete_post = asyncHandler(async (req, res, next) => {
       games_by_publisher: gamesBypublisher,
     });
   } else {
-    await publisher.findByIdAndDelete(req.body.publisherid);
+    await Publisher.findByIdAndDelete(req.body.publisherid);
     res.redirect("/catalog/publishers");
   }
 });
