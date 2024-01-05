@@ -3,4 +3,13 @@ extends layout
 block content 
   h1 #{title}
 
-  p Not yet implemented
+  form(method='POST' action='')
+    div.form-group
+      label(for='name') Publisher:
+      input#name.form-control(type='text', placeholder='Activision, Ubisoft etc.' name='name' required='true' value=(undefined===publisher ? '' : publisher.name) )
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

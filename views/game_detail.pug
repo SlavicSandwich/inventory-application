@@ -18,7 +18,9 @@ block content
   p Developed by:  #{game.developer.name}
   p Published by:  #{game.publisher.name}
 
-  p Genre: #{game.genre.name}
+  p Genres: 
+    each single_genre in game.genre 
+      span #{single_genre.name}
 
   if game.status=='Available'
     span.text-success #{game.status}
@@ -28,5 +30,11 @@ block content
     span.text-warning #{game.status}
   if game.status !='Not out yet'
     p Price: 
-      span #{game.price}
+      span #{game.price} $
+
+  hr
+  p
+    a(href=game.url+'/delete') Delete game
+  p
+    a(href=game.url+'/update') Update game
 

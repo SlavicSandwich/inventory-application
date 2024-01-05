@@ -1,6 +1,53 @@
 extends layout 
 
 block content 
-  h1 #{title}
+  h1=title 
 
-  p Not yet implemented
+  form(method="POST" action='' )
+    div.form-group
+      label(for="name") Game's name: 
+      input#title.form-control(type='text', placeholder='Name of game' name='name' required='true' value=(undefined == game ? "": game.name))
+    div.form-group
+      label(for='developer') Developer: 
+        select#developer.form-control(type='select', placeholder='Select Developer' name='developer' required='true')
+          for developer in developers 
+            if game 
+              option(value=developer._id selected=(developer._id.toString() === game.developer._id.toString() ? "selected" : false)) #{developer.name} 
+            else 
+              option(value=developer._id) #{developer.name}
+    div.form-group
+        label(for='publisher') Publisher: 
+          select#publisher.form-control(type='select', placeholder='Select publisher' name='publisher' required='true')
+            for publisher in publishers 
+              if game 
+                option(value=publisher._id selected=(publisher._id.toString() === game.publisher._id.toString() ? "selected" : false)) #{publisher.name} 
+              else 
+                option(value=publisher._id) #{publisher.name}
+
+    div.form-group
+      label(for='description') Description:
+      textarea#description.form-control(type='textarea', placeholder='Description' name='description' required='true') #{undefined===game ? '' : game.description}
+    div.form-group
+      label Genre:
+      div
+        for genre in genres
+          div(style='display: inline; padding-right:10px;')
+            input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
+            label(for=genre._id) #{genre.name}
+
+    div.form-group
+      label(for='release_date') Release Date:
+      input#release_date.form-control(type='date' name='release_date' value=(undefined===game ? '' : game.release_date_yyyy_mm_dd))
+
+    div.form-group
+      label(for='status') Status:
+      select#status.form-control(type='select' placeholder='Select status' name='status' required='true' )
+        option(value='Not out yet' selected=(undefined===game || game.status!='Not out yet' ? false:'selected')) Not out yet
+        option(value='Available' selected=(undefined===game || game.status!='Available' ? false:'selected')) Available
+        option(value='Out of stock' selected=(undefined===game || game.status!='Out of stock' ? false:'selected')) Out of stock
+        
+    div.form-group
+      label(for='price') Price: 
+      input(type='number' name='price' min='0' step='0.01' class='form-control' value=((game && game.price)? game.price : ''))
+    button.btn.btn-primary(type='submit') Submit
+      

@@ -1,6 +1,11 @@
 extends layout 
 
 block content 
-  h1 #{title}
+  h1 #{title}: #{game.name}
 
-  p Not yet implemented
+
+  p Do you really want to delete this game?
+  form(method='POST' action='')
+    div.form-group
+      input#gameid.form-control(type='hidden',name='gameid', required='true', value=game._id )
+    button.btn.btn-primary(type='submit') Delete
