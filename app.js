@@ -11,7 +11,7 @@ const catalogRouter = require("./routes/catalog");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB =
-  "mongodb+srv://SlavicSandwich:Artbb98262502@cluster0.sxathpp.mongodb.net/local_inventory?retryWrites=true&w=majority";
+  "MONGO DB URL";
 
 main().catch((err) => console.log(err));
 async function main() {
